@@ -69,6 +69,10 @@ static void __khook_init(khook_t *s)
 	x86_64 = 1;
 #endif
 
+	printk("hooking %s\n", s->name);
+	{ int i; for (i = 0; i < 16; i++) printk("%02x ", ((unsigned char *)s->target)[i]); }
+	printk("\n");
+
 	if (s->target[0] == 0xE9 || s->target[0] == 0xCC)
 		return;
 
@@ -143,6 +147,7 @@ static int __khook_cleanup_hooks(void *wakeup)
 
 static int __khook_try_to_wakeup(void *arg)
 {
+#if 0
 	struct task_struct *g, *p;
 
 	do_each_thread(g, p) {
@@ -150,7 +155,7 @@ static int __khook_try_to_wakeup(void *arg)
 		send_sig(SIGSTOP, g, 1);
 		send_sig(SIGCONT, g, 1);
 	} while_each_thread(g, p);
-
+#endif
 	return 0;
 }
 
