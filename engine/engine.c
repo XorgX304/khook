@@ -143,6 +143,7 @@ static int __khook_cleanup_hooks(void *wakeup)
 
 static int __khook_try_to_wakeup(void *arg)
 {
+#if 0
 	struct task_struct *g, *p;
 
 	do_each_thread(g, p) {
@@ -150,7 +151,7 @@ static int __khook_try_to_wakeup(void *arg)
 		send_sig(SIGSTOP, g, 1);
 		send_sig(SIGCONT, g, 1);
 	} while_each_thread(g, p);
-
+#endif
 	return 0;
 }
 
